@@ -90,14 +90,10 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         urgency: 'critical'
       };
       const notification = new Notification(notificationOptions);
-      notification.on('click', () => {
-        // this.resolveNotificationResponse(nu, true);
-        console.log('clicked');
-        resolve(options.nu);
-      });
-      notification.on('failed', error => reject(error));
       notification.show();
-     
+      notification.on('click', () => resolve(options.nu));
+      notification.on('failed', error => reject(error));
+
     });
   };
 
@@ -111,7 +107,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       let pathApp = app.getAppPath().replace('/resources/app.asar', '');
       pathApp = pathApp.replace('/app.asar', '');
       urlMp3 = path.join(pathApp, '../assets/', options.src);
-      urlMp3 = urlMp3.replace('\\\\','\\');
+      urlMp3 = urlMp3.replace('\\\\', '\\');
     }
     // console.log('Ruta audio: ', urlMp3);
     const optionsSoundplayer = {

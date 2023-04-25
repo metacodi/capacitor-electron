@@ -95,7 +95,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     // });
     notification.show();
 
-    return Promise.resolve(notification);
+    return Promise.resolve();
   };
 
   async playSound(options: { src: string, loop?: boolean, volume?: number }): Promise<any> {

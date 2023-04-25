@@ -76,27 +76,28 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   }
 
-  async showNotification(options: { package: string, title: string, message: string }): Promise<any> {
-
-    const path = require('path');
-    if (process.platform === 'win32') { app.setAppUserModelId(options.package); }
-    const appPath = app.getAppPath().replace('/app.asar', '');
-    const title = process.platform === 'win32' ? (options.title || '').replace(new RegExp('<br[ /]*>'), '\n') : options.title;
-    const message = process.platform === 'win32' ? (options.message || '').replace(new RegExp('<br[ /]*>'), '\n') : options.message;
-    const notificationOptions: NotificationConstructorOptions = {
-      title: title,
-      body: message,
-      icon: path.join(appPath, '../assets/appIcon.png'),
-      urgency: 'critical'
-    };
-    const notification = new Notification(notificationOptions);
-    notification.on('click', () => {
-      // this.resolveNotificationResponse(nu, true);
-      console.log('clicked');
+  async showNotification(options: { package: string, title: string, message: string, nu: any }): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const path = require('path');
+      if (process.platform === 'win32') { app.setAppUserModelId(options.package); }
+      const appPath = app.getAppPath().replace('/app.asar', '');
+      const title = process.platform === 'win32' ? (options.title || '').replace(new RegExp('<br[ /]*>'), '\n') : options.title;
+      const message = process.platform === 'win32' ? (options.message || '').replace(new RegExp('<br[ /]*>'), '\n') : options.message;
+      const notificationOptions: NotificationConstructorOptions = {
+        title: title,
+        body: message,
+        icon: path.join(appPath, '../assets/appIcon.png'),
+        urgency: 'critical'
+      };
+      const notification = new Notification(notificationOptions);
+      notification.on('click', () => {
+        // this.resolveNotificationResponse(nu, true);
+        console.log('clicked');
+        resolve(options.nu);
+      });
+      notification.show();
+     
     });
-    notification.show();
-
-    return Promise.resolve();
   };
 
   async playSound(options: { src: string, loop?: boolean, volume?: number }): Promise<any> {

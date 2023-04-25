@@ -90,9 +90,10 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       urgency: 'critical'
     };
     const notification = new Notification(notificationOptions);
-    // notification.on('click', () => {
-    //   this.resolveNotificationResponse(nu, true);
-    // });
+    notification.on('click', () => {
+      // this.resolveNotificationResponse(nu, true);
+      console.log('clicked');
+    });
     notification.show();
 
     return Promise.resolve();

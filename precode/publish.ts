@@ -43,8 +43,8 @@ project.initialize().then(async () => {
     fs.rmSync(`dist`, { recursive: true, force: true });
   }
 
-  // Terminal.log(chalk.bold(`Compilant projecte typescript`));
-  // await Terminal.run(`npm run build`);
+  Terminal.log(chalk.bold(`Compilant projecte typescript`));
+  await Terminal.run(`npm run build`);
 
   const ok = await Git.publish({ branch: 'main', commit: Prompt.commit });
   if (ok) { Terminal.log(`Git published successfully!`); }

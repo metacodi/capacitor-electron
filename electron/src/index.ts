@@ -95,6 +95,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         console.log('clicked');
         resolve(options.nu);
       });
+      notification.on('failed', error => reject(error));
       notification.show();
      
     });

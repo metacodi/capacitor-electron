@@ -25,7 +25,7 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
     return;
   };
 
-  async showNotification(options: { package: string, title: string, message: string, nu: any  }): Promise<any> {
+  async showNotification(options: { package: string, title: string, message: string, nu: any }): Promise<any> {
     console.log('not implemented on web', options);
     return;
   };

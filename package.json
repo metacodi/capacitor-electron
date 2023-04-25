@@ -1,6 +1,6 @@
 {
   "name": "@metacodi/capacitor-electron",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "description": "Capacitor metacodi electron plugin for Capacitor v.3",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

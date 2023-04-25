@@ -132,14 +132,14 @@ Set Badge of application
 ### showNotification(...)
 
 ```typescript
-showNotification(options: { package: string; title: string; message: string; }) => Promise<any>
+showNotification(options: { package: string; title: string; message: string; nu: any; }) => Promise<any>
 ```
 
 Show system notification
 
-| Param         | Type                                                              |
-| ------------- | ----------------------------------------------------------------- |
-| **`options`** | <code>{ package: string; title: string; message: string; }</code> |
+| Param         | Type                                                                       |
+| ------------- | -------------------------------------------------------------------------- |
+| **`options`** | <code>{ package: string; title: string; message: string; nu: any; }</code> |
 
 **Returns:** <code>Promise&lt;any&gt;</code>
 

@@ -90,10 +90,10 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         urgency: 'critical'
       };
       const notification = new Notification(notificationOptions);
-      notification.show();
       notification.on('click', () => resolve(options.nu));
       notification.on('failed', error => reject(error));
-
+      notification.show();
+      
     });
   };
 

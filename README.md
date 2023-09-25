@@ -335,7 +335,7 @@ listEvents(options: EventListOpts) => Promise<Results<IEvent>>
 
 | Prop             | Type                                                     |
 | ---------------- | -------------------------------------------------------- |
-| **`uniqueId`**   | <code>string</code>                                      |
+| **`id`**         | <code>string</code>                                      |
 | **`calendarId`** | <code>string</code>                                      |
 | **`title`**      | <code>string</code>                                      |
 | **`start`**      | <code>string</code>                                      |

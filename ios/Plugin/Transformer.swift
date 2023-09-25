@@ -20,8 +20,8 @@ import EventKit
 
     public func transformEKCalendar(_ calendar: EKCalendar) -> [String: Any?] {
         return [
-            "uniqueId": calendar.calendarIdentifier,
-            "title": calendar.title,
+            "id": calendar.calendarIdentifier,
+            "name": calendar.title,
             "color": calendar.cgColor.hexString
         ]
     }

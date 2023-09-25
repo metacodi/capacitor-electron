@@ -20,7 +20,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         ])
     }
 
-    @objc override public func checkPermissions(_ call: CAPPluginCall) {
+    @objc override public func checkPermissionCalendar(_ call: CAPPluginCall) {
         let state: String
         switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
         case .notDetermined:
@@ -39,7 +39,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         call.resolve(["status": state])
     }
 
-    @objc override public func requestPermissions(_ call: CAPPluginCall) {
+    @objc override public func requestPermissionsCalendar(_ call: CAPPluginCall) {
         eventStore.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
             if let error = error {
                 call.reject(error.localizedDescription)

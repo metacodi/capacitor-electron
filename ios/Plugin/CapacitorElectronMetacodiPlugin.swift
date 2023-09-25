@@ -20,36 +20,64 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         ])
     }
 
-    @objc override public func checkPermissionCalendar(_ call: CAPPluginCall) {
+   @objc func checkPermissionCalendar(_ call: CAPPluginCall) {
         let state: String
-        switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
-        case .notDetermined:
-            state = "prompt"
-        case .restricted, .denied:
-            state = "denied"
-        case .authorized:
-            state = "granted"
-        case .fullAccess:
-            state = "fullAccess"
-        case .writeOnly:
-            state = "writeOnly"
-        @unknown default:
-            state = "prompt"
+        if #available(iOS 17.0, *) {
+            switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
+            case .notDetermined:
+                state = "prompt"
+            case .restricted, .denied:
+                state = "denied"
+            case .authorized:
+                state = "granted"
+            case .fullAccess:
+                state = "fullAccess"
+            case .writeOnly:
+                state = "writeOnly"
+            @unknown default:
+                state = "prompt"
+            }
+        } else {
+            switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
+            case .notDetermined:
+                state = "prompt"
+            case .restricted, .denied:
+                state = "denied"
+            case .authorized:
+                state = "granted"
+            @unknown default:
+                state = "prompt"
+            }
         }
         call.resolve(["status": state])
+    
     }
 
-    @objc override public func requestPermissionsCalendar(_ call: CAPPluginCall) {
-        eventStore.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
-            if let error = error {
-                call.reject(error.localizedDescription)
-                return
+    @objc func requestPermissionsCalendar(_ call: CAPPluginCall) {
+        if #available(iOS 17.0, *) {
+            eventStore.requestFullAccessToEvents { granted, error in
+                if let error = error {
+                    call.reject(error.localizedDescription)
+                    return
+                }
+                if !granted {
+                    call.reject("Access to events was denied")
+                    return
+                }
             }
-            if !granted {
-                call.reject("Access to events was denied")
-                return
+            checkPermissionCalendar(call);
+        } else {
+            eventStore.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
+                if let error = error {
+                    call.reject(error.localizedDescription)
+                    return
+                }
+                if !granted {
+                    call.reject("Access to events was denied")
+                    return
+                }
+                self?.checkPermissions(call)
             }
-            self?.checkPermissions(call)
         }
     }
 }

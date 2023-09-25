@@ -8,14 +8,14 @@ import EventKit
  */
 @objc(CapacitorElectronMetacodiPlugin)
 public class CapacitorElectronMetacodiPlugin: CAPPlugin {
-    private var implementation = CapacitorElectronMetacodi(store: <#EKEventStore#>)
-    private var eventStore: EKEventStore? = nil
-    private var transformer: Transformer? = nil
+    private var implementation: CapacitorElectronMetacodi!
+    private var eventStore: EKEventStore!
+    private var transformer: Transformer!
 
     override public func load() { 
-        self.eventStore = EKEventStore()
-        self.implementation = CapacitorElectronMetacodi(store: eventStore ?? <#default value#>)
-        self.transformer = Transformer()
+        eventStore = EKEventStore()
+        implementation = CapacitorElectronMetacodi(store: eventStore!.self)
+        transformer = Transformer()
         super.load()
     }
 

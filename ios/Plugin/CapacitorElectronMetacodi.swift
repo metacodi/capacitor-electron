@@ -1,7 +1,7 @@
 import Foundation
 import EventKit
 
-enum CalendarError: Error {
+enum CapacitorElectronMetacodiError: Error {
     case NoCalendarSource
     case NoCalendarForName(name: String)
     case NoEventFound(id: String)

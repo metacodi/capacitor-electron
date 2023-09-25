@@ -8,12 +8,16 @@ import EventKit
  */
 @objc(CapacitorElectronMetacodiPlugin)
 public class CapacitorElectronMetacodiPlugin: CAPPlugin {
-    private let implementation = CapacitorElectronMetacodi()
-    private var eventStore = EKEventStore()
-    private let implementation: Calendar!
-    private let transformer: Transformer!
+    private var implementation = CapacitorElectronMetacodi(store: <#EKEventStore#>)
+    private var eventStore: EKEventStore? = nil
+    private var transformer: Transformer? = nil
 
-    override public func load() { }
+    override public func load() { 
+        self.eventStore = EKEventStore()
+        self.implementation = CapacitorElectronMetacodi(store: eventStore ?? <#default value#>)
+        self.transformer = Transformer()
+        super.load()
+    }
 
     @objc func echo(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""
@@ -24,32 +28,20 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
 
    @objc func checkPermissionCalendar(_ call: CAPPluginCall) {
         let state: String
-        if #available(iOS 17.0, *) {
-            switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
-            case .notDetermined:
-                state = "prompt"
-            case .restricted, .denied:
-                state = "denied"
-            case .authorized:
-                state = "granted"
-            case .fullAccess:
-                state = "granted"
-            case .writeOnly:
-                state = "granted"
-            @unknown default:
-                state = "prompt"
-            }
-        } else {
-            switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
-            case .notDetermined:
-                state = "prompt"
-            case .restricted, .denied:
-                state = "denied"
-            case .authorized:
-                state = "granted"
-            @unknown default:
-                state = "prompt"
-            }
+        
+        switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
+        case .notDetermined:
+            state = "prompt"
+        case .restricted, .denied:
+            state = "denied"
+        case .authorized:
+            state = "granted"
+        case .fullAccess:
+            state = "granted"
+        case .writeOnly:
+            state = "granted"
+        @unknown default:
+            state = "prompt"
         }
         call.resolve(["status": state])
     
@@ -57,7 +49,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
 
     @objc func requestPermissionsCalendar(_ call: CAPPluginCall) {
         if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToEvents { granted, error in
+            eventStore?.requestFullAccessToEvents { granted, error in
                 if let error = error {
                     call.reject(error.localizedDescription)
                     return
@@ -69,7 +61,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             }
             checkPermissionCalendar(call);
         } else {
-            eventStore.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
+            eventStore?.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
                 if let error = error {
                     call.reject(error.localizedDescription)
                     return
@@ -90,7 +82,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         }
         do {
             let calendar = try self.implementation.createCalendar(name: name)
-            call.resolve(self.transformer.transformEKCalendar(calendar) as PluginCallResultData)
+            call.resolve(self.transformer!.transformEKCalendar(calendar) as PluginCallResultData)
         } catch CalendarError.NoCalendarSource {
             call.reject("Failed to create calendar: No source found")
         } catch {
@@ -129,7 +121,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         do {
             let event = try self.implementation.createEvent(
                 calendar: calendar, title: title, start: start, end: end, location: structuredLocation)
-            call.resolve(self.transformer.transformEKEvent(event) as PluginCallResultData)
+            call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
             call.reject("Failed to create event: \(error)")
         }
@@ -155,7 +147,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         do {
             let event = try self.implementation.updateEvent(
                 eventId: event, title: title, start: start, end: end, location: structuredLocation)
-            call.resolve(self.transformer.transformEKEvent(event) as PluginCallResultData)
+            call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
             call.reject("Failed to update event: \(error)")
         }
@@ -176,9 +168,9 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
 
     @objc func listCalendars(_ call: CAPPluginCall) {
         let calendars = self.implementation.listCalendars().map {
-            (calendar) -> [String: Any?] in self.transformer.transformEKCalendar(calendar)
+            (calendar) -> [String: Any?] in self.transformer!.transformEKCalendar(calendar)
         }
-        call.resolve(self.transformer.transformList(calendars))
+        call.resolve(self.transformer!.transformList(calendars))
     }
 
     @objc func listEvents(_ call: CAPPluginCall) {
@@ -196,8 +188,8 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         }
 
         let events = self.implementation.listEvents(start: start, end: end, calendars: calendars).map {
-            (event) -> [String: Any?] in self.transformer.transformEKEvent(event)
+            (event) -> [String: Any?] in self.transformer!.transformEKEvent(event)
         }
-        call.resolve(self.transformer.transformList(events))
+        call.resolve(self.transformer!.transformList(events))
     }
 }

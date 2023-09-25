@@ -9,7 +9,9 @@ import EventKit
 @objc(CapacitorElectronMetacodiPlugin)
 public class CapacitorElectronMetacodiPlugin: CAPPlugin {
     private let implementation = CapacitorElectronMetacodi()
-    private let eventStore: EKEventStore!
+    private var eventStore = EKEventStore()
+
+    override public func load() { }
 
     @objc func echo(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""
@@ -27,6 +29,10 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             state = "denied"
         case .authorized:
             state = "granted"
+        case .fullAccess:
+            state = "fullAccess"
+        case .writeOnly:
+            state = "writeOnly"
         @unknown default:
             state = "prompt"
         }
@@ -34,7 +40,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
     }
 
     @objc override public func requestPermissions(_ call: CAPPluginCall) {
-        self.eventStore.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
+        eventStore.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
             if let error = error {
                 call.reject(error.localizedDescription)
                 return

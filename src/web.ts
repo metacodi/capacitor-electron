@@ -55,18 +55,22 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
   }
 
   async createCalendar(options: CalendarCreateOpts): Promise<ICalendar> {
-    throw this.unimplemented('calendar plugin not available on web');
+    if (options) { console.log('calendar plugin not available on web'); };
+    throw this.unimplemented('calendar plugin not available on web',);
   }
 
   async createEvent(options: EventCreateOpts): Promise<IEvent> {
+    if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
 
   async updateEvent(options: EventUpdateOpts): Promise<IEvent> {
+    if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
 
   async deleteEvent(options: EventDeleteOpts): Promise<any> {
+    if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
 
@@ -75,6 +79,7 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
   }
 
   listEvents(options: EventListOpts): Promise<Results<IEvent>> {
+    if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
 

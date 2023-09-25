@@ -142,21 +142,25 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   }
 
   async createCalendar(options: any): Promise<any> {
+    if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
   }
 
   async createEvent(options: any): Promise<any> {
+    if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
   }
 
   async updateEvent(options: any): Promise<any> {
+    if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
   }
 
   async deleteEvent(options: any): Promise<any> {
+    if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
   }
@@ -167,6 +171,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   }
 
   listEvents(options: any): Promise<any> {
+    if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return ({} as any);
   }

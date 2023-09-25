@@ -165,7 +165,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return {} ;
   }
 
-  listCalendars(): Promise<any> {
+  listCalendars(): Promise<Results<any>> {
     console.log('calendar plugin not available on web');
     return ({} as any);
   }

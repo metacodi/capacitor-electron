@@ -5,4 +5,6 @@
 // each method the plugin supports using the CAP_PLUGIN_METHOD macro.
 CAP_PLUGIN(CapacitorElectronMetacodiPlugin, "CapacitorElectronMetacodi",
            CAP_PLUGIN_METHOD(echo, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(requestPermissions, CAPPluginReturnPromise);
+           CAP_PLUGIN_METHOD(checkPermissions, CAPPluginReturnPromise);
 )

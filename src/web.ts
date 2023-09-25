@@ -1,6 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { CapacitorElectronMetacodiPlugin } from './definitions';
+import type { CapacitorElectronMetacodiPlugin, PermissionStatus } from './definitions';
 
 export class CapacitorElectronMetacodiWeb extends WebPlugin implements CapacitorElectronMetacodiPlugin {
 
@@ -36,4 +36,13 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
   }
 
   async stopSound(): Promise<void> { return; };
+
+  async checkPermissionCalendar(): Promise<PermissionStatus> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
+  async requestPermissionsCalendar(): Promise<PermissionStatus> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
 }

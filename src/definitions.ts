@@ -2,6 +2,10 @@ import type { PluginListenerHandle } from '@capacitor/core';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { BrowserWindowConstructorOptions } from 'electron';
 
+export interface PermissionStatus {
+  status: PermissionState;
+}
+
 export interface CapacitorElectronMetacodiPlugin {
   addListener(
     eventName: 'ping',

@@ -6,10 +6,6 @@ import { BrowserWindow, app, Notification, clipboard } from 'electron';
 
 import type { CapacitorElectronMetacodiPlugin } from '../../src/definitions';
 
-export interface Results<T> {
-  results: T[];
-}
-
 export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugin {
 
   win: BrowserWindow;
@@ -165,12 +161,12 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return {} ;
   }
 
-  listCalendars(): Promise<Results<any>> {
+  listCalendars(): Promise<any> {
     console.log('calendar plugin not available on web');
     return ({} as any);
   }
 
-  listEvents(options: any): Promise<Results<any>> {
+  listEvents(options: any): Promise<any> {
     console.log('calendar plugin not available on web');
     return ({} as any);
   }

@@ -317,11 +317,11 @@ listEvents(options: EventListOpts) => Promise<Results<IEvent>>
 
 #### ICalendar
 
-| Prop           | Type                |
-| -------------- | ------------------- |
-| **`uniqueId`** | <code>string</code> |
-| **`title`**    | <code>string</code> |
-| **`color`**    | <code>string</code> |
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`id`**    | <code>string</code> |
+| **`name`**  | <code>string</code> |
+| **`color`** | <code>string</code> |
 
 
 #### CalendarCreateOpts

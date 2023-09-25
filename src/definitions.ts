@@ -46,8 +46,8 @@ export interface EventListOpts {
 }
 
 export interface ICalendar {
-  uniqueId: string;
-  title: string;
+  id: string;
+  name: string;
   color: string;
 }
 

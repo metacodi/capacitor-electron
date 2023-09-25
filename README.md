@@ -23,7 +23,10 @@ npx cap sync
 * [`showNotification(...)`](#shownotification)
 * [`playSound(...)`](#playsound)
 * [`stopSound()`](#stopsound)
+* [`checkPermissionCalendar()`](#checkpermissioncalendar)
+* [`requestPermissionsCalendar()`](#requestpermissionscalendar)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
@@ -174,6 +177,28 @@ Stop Sound
 --------------------
 
 
+### checkPermissionCalendar()
+
+```typescript
+checkPermissionCalendar() => Promise<PermissionStatus>
+```
+
+**Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
+
+--------------------
+
+
+### requestPermissionsCalendar()
+
+```typescript
+requestPermissionsCalendar() => Promise<PermissionStatus>
+```
+
+**Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
+
+--------------------
+
+
 ### Interfaces
 
 
@@ -182,5 +207,20 @@ Stop Sound
 | Prop         | Type                                      |
 | ------------ | ----------------------------------------- |
 | **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+
+#### PermissionStatus
+
+| Prop         | Type                                                        |
+| ------------ | ----------------------------------------------------------- |
+| **`status`** | <code><a href="#permissionstate">PermissionState</a></code> |
+
+
+### Type Aliases
+
+
+#### PermissionState
+
+<code>'prompt' | 'prompt-with-rationale' | 'granted' | 'denied'</code>
 
 </docgen-api>

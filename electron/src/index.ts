@@ -131,4 +131,14 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     this.soundPlay.stop();
     return;
   };
+
+  async checkPermissionCalendar():  Promise<any> {
+    console.log('calendar plugin not available on web');
+    return { status: 'denied'} ;
+  }
+
+  async requestPermissionsCalendar():  Promise<any> {
+    console.log('calendar plugin not available on web');
+    return { status: 'denied'} ;
+  }
 }

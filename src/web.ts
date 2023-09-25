@@ -38,11 +38,13 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
   async stopSound(): Promise<void> { return; };
 
   async checkPermissionCalendar(): Promise<PermissionStatus> {
-    throw this.unimplemented('calendar plugin not available on web');
+    console.log('calendar plugin not available on web');
+    return { status: 'denied'} ;
   }
 
   async requestPermissionsCalendar(): Promise<PermissionStatus> {
-    throw this.unimplemented('calendar plugin not available on web');
+    console.log('calendar plugin not available on web');
+    return { status: 'denied'} ;
   }
 
 }

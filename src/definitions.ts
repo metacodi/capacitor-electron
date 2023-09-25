@@ -1,4 +1,4 @@
-import type { PluginListenerHandle } from '@capacitor/core';
+import type { PermissionState, PluginListenerHandle } from '@capacitor/core';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { BrowserWindowConstructorOptions } from 'electron';
 
@@ -59,4 +59,9 @@ export interface CapacitorElectronMetacodiPlugin {
    * Stop Sound
    */
    stopSound(): Promise<void>;
+
+  checkPermissionCalendar(): Promise<PermissionStatus>;
+    
+  requestPermissionsCalendar(): Promise<PermissionStatus>;
+
 }

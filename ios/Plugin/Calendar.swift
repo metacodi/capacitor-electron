@@ -7,7 +7,7 @@ enum CalendarError: Error {
     case NoEventFound(id: String)
 }
 
-@objc public class CapacitorElectronMetacodi: NSObject {
+@objc public class Calendar: NSObject {
 
     private let store: EKEventStore!
 
@@ -137,10 +137,5 @@ enum CalendarError: Error {
             throw CalendarError.NoCalendarSource
         }
         return defaultSource ?? iCloud ?? local
-    }
-
-    @objc public func echo(_ value: String) -> String {
-        print(value)
-        return value
     }
 }

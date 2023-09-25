@@ -1,6 +1,13 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { CapacitorElectronMetacodiPlugin, PermissionStatus } from './definitions';
+import type { CapacitorElectronMetacodiPlugin, PermissionStatus, ICalendar,
+  CalendarCreateOpts,
+  IEvent,
+  EventCreateOpts,
+  EventUpdateOpts,
+  EventDeleteOpts,
+  Results,
+  EventListOpts, } from './definitions';
 
 export class CapacitorElectronMetacodiWeb extends WebPlugin implements CapacitorElectronMetacodiPlugin {
 
@@ -45,6 +52,30 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
   async requestPermissionsCalendar(): Promise<PermissionStatus> {
     console.log('calendar plugin not available on web');
     return { status: 'denied'} ;
+  }
+
+  async createCalendar(options: CalendarCreateOpts): Promise<ICalendar> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
+  async createEvent(options: EventCreateOpts): Promise<IEvent> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
+  async updateEvent(options: EventUpdateOpts): Promise<IEvent> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
+  async deleteEvent(options: EventDeleteOpts): Promise<any> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
+  listCalendars(): Promise<Results<ICalendar>> {
+    throw this.unimplemented('calendar plugin not available on web');
+  }
+
+  listEvents(options: EventListOpts): Promise<Results<IEvent>> {
+    throw this.unimplemented('calendar plugin not available on web');
   }
 
 }

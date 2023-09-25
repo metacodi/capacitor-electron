@@ -6,6 +6,9 @@ import { BrowserWindow, app, Notification, clipboard } from 'electron';
 
 import type { CapacitorElectronMetacodiPlugin } from '../../src/definitions';
 
+export interface Results<T> {
+  results: T[];
+}
 
 export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugin {
 
@@ -140,5 +143,35 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   async requestPermissionsCalendar():  Promise<any> {
     console.log('calendar plugin not available on web');
     return { status: 'denied'} ;
+  }
+
+  async createCalendar(options: any): Promise<any> {
+    console.log('calendar plugin not available on web');
+    return {} ;
+  }
+
+  async createEvent(options: any): Promise<any> {
+    console.log('calendar plugin not available on web');
+    return {} ;
+  }
+
+  async updateEvent(options: any): Promise<any> {
+    console.log('calendar plugin not available on web');
+    return {} ;
+  }
+
+  async deleteEvent(options: any): Promise<any> {
+    console.log('calendar plugin not available on web');
+    return {} ;
+  }
+
+  listCalendars(): Promise<any> {
+    console.log('calendar plugin not available on web');
+    return ({} as any);
+  }
+
+  listEvents(options: any): Promise<Results<any>> {
+    console.log('calendar plugin not available on web');
+    return ({} as any);
   }
 }

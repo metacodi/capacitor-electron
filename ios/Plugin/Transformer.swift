@@ -5,9 +5,9 @@ import EventKit
 
     public func transformEKEvent(_ event: EKEvent) -> [String: Any?] {
         return [
-            "id": event.eventIdentifier,
+            "uniqueId": event.eventIdentifier,
             "calendarId": event.calendar.calendarIdentifier,
-            "name": event.title,
+            "title": event.title,
             "start": event.startDate,
             "end": event.endDate,
             "location": [

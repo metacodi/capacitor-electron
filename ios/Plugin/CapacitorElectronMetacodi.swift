@@ -43,9 +43,13 @@ enum CapacitorElectronMetacodiError: Error {
     ) throws -> EKEvent {
         let source = try self.getCalendarSource()
 
-        guard let calendar = self.getCalendarByName(calendar, source: source) else {
+        guard let calendar = self.getCalendarById(calendar, source: source) else {
             throw CalendarError.NoCalendarForName(name: calendar)
         }
+
+        // guard let calendar = self.getCalendarByName(calendar, source: source) else {
+        //     throw CalendarError.NoCalendarForName(name: calendar)
+        // }
 
         let event = EKEvent(eventStore: self.store)
         event.calendar = calendar
@@ -123,6 +127,15 @@ enum CapacitorElectronMetacodiError: Error {
     private func getCalendarByName(_ name: String, source: EKSource?) -> EKCalendar? {
         for cal in self.listCalendars() {
             if cal.title == name && cal.source == source {
+                return cal
+            }
+        }
+        return nil
+    }
+
+    private func getCalendarById(_ id: String, source: EKSource?) -> EKCalendar? {
+        for cal in self.listCalendars() {
+            if cal.calendarIdentifier == id && cal.source == source {
                 return cal
             }
         }

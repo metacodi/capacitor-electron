@@ -21,6 +21,7 @@ export interface EventCreateOpts {
     lat: number;
     lon: number;
   };
+  notes: string;
 }
 
 export interface EventUpdateOpts {
@@ -33,6 +34,7 @@ export interface EventUpdateOpts {
     lat: number;
     lon: number;
   };
+  notes: string;
 }
 
 export interface EventDeleteOpts {
@@ -62,6 +64,7 @@ export interface IEvent {
     lat: number;
     lon: number;
   };
+  notes: string;
 }
 
 export interface Results<T> {

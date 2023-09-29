@@ -341,6 +341,7 @@ listEvents(options: EventListOpts) => Promise<Results<IEvent>>
 | **`start`**      | <code>string</code>                                      |
 | **`end`**        | <code>string</code>                                      |
 | **`location`**   | <code>{ name: string; lat: number; lon: number; }</code> |
+| **`notes`**      | <code>string</code>                                      |
 
 
 #### EventCreateOpts
@@ -352,6 +353,7 @@ listEvents(options: EventListOpts) => Promise<Results<IEvent>>
 | **`start`**    | <code><a href="#date">Date</a></code>                    |
 | **`end`**      | <code><a href="#date">Date</a></code>                    |
 | **`location`** | <code>{ name: string; lat: number; lon: number; }</code> |
+| **`notes`**    | <code>string</code>                                      |
 
 
 #### Date
@@ -414,6 +416,7 @@ Enables basic storage and retrieval of dates and times.
 | **`start`**    | <code><a href="#date">Date</a></code>                    |
 | **`end`**      | <code><a href="#date">Date</a></code>                    |
 | **`location`** | <code>{ name: string; lat: number; lon: number; }</code> |
+| **`notes`**    | <code>string</code>                                      |
 
 
 #### EventDeleteOpts

@@ -34,7 +34,7 @@ enum CapacitorElectronMetacodiError: Error {
         return calendar
     }
 
-    @objc public func createEvent(
+    @objc public func createCalendarEvent(
         calendar: String,
         title: String,
         start: Date,
@@ -64,7 +64,7 @@ enum CapacitorElectronMetacodiError: Error {
         return event
     }
 
-    @objc public func updateEvent(
+    @objc public func updateCalendarEvent(
         eventId: String,
         title: String?,
         start: Date?,
@@ -96,7 +96,7 @@ enum CapacitorElectronMetacodiError: Error {
         return event
     }
 
-    @objc public func deleteEvent(
+    @objc public func deleteCalendarEvent(
         eventId: String
     ) throws {
         guard let event = self.store.event(withIdentifier: eventId) else {
@@ -109,7 +109,7 @@ enum CapacitorElectronMetacodiError: Error {
         return self.store.calendars(for: EKEntityType.event)
     }
 
-    @objc public func listEvents(
+    @objc public func listCalendarEvents(
         start: Date,
         end: Date,
         calendars: [String]

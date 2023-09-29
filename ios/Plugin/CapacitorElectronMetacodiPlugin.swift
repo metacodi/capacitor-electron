@@ -26,7 +26,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         ])
     }
 
-   @objc func checkPermissionCalendar(_ call: CAPPluginCall) {
+   @objc func checkCalendarPermission(_ call: CAPPluginCall) {
         let state: String
         
         switch EKEventStore.authorizationStatus(for: EKEntityType.event) {
@@ -47,7 +47,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
     
     }
 
-    @objc func requestPermissionsCalendar(_ call: CAPPluginCall) {
+    @objc func requestCalendarPermissions(_ call: CAPPluginCall) {
         if #available(iOS 17.0, *) {
             eventStore?.requestFullAccessToEvents { granted, error in
                 if let error = error {
@@ -59,7 +59,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
                     return
                 }
             }
-            checkPermissionCalendar(call);
+            checkCalendarPermission(call);
         } else {
             eventStore?.requestAccess(to: EKEntityType.event) { [weak self] granted, error in
                 if let error = error {
@@ -90,7 +90,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         }
     }
 
-    @objc func createEvent(_ call: CAPPluginCall) {
+    @objc func createCalendarEvent(_ call: CAPPluginCall) {
         guard let calendar = call.getString("calendar") else {
             call.reject("Must provide a calendar name to associate the event")
             return
@@ -123,7 +123,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             return
         }
         do {
-            let event = try self.implementation.createEvent(
+            let event = try self.implementation.createCalendarEvent(
                 calendar: calendar, title: title, start: start, end: end, location: structuredLocation, notes: notes)
             call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
@@ -131,7 +131,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         }
     }
 
-    @objc func updateEvent(_ call: CAPPluginCall) {
+    @objc func updateCalendarEvent(_ call: CAPPluginCall) {
         guard let event = call.getString("event") else {
             call.reject("Must provide a event id")
             return
@@ -153,7 +153,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             return
         }
         do {
-            let event = try self.implementation.updateEvent(
+            let event = try self.implementation.updateCalendarEvent(
                 eventId: event, title: title, start: start, end: end, location: structuredLocation, notes: notes)
             call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
@@ -161,13 +161,13 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         }
     }
 
-    @objc func deleteEvent(_ call: CAPPluginCall) {
+    @objc func deleteCalendarEvent(_ call: CAPPluginCall) {
         guard let event = call.getString("event") else {
             call.reject("Must provide a event id")
             return
         }
         do {
-            try self.implementation.deleteEvent(eventId: event)
+            try self.implementation.deleteCalendarEvent(eventId: event)
             call.resolve()
         } catch {
             call.reject("Failed to delete event: \(error)")
@@ -181,7 +181,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         call.resolve(self.transformer!.transformList(calendars))
     }
 
-    @objc func listEvents(_ call: CAPPluginCall) {
+    @objc func listCalendarEvents(_ call: CAPPluginCall) {
         guard let start = call.getDate("start") else {
             call.reject("Must provide a start date")
             return
@@ -195,7 +195,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             return
         }
 
-        let events = self.implementation.listEvents(start: start, end: end, calendars: calendars).map {
+        let events = self.implementation.listCalendarEvents(start: start, end: end, calendars: calendars).map {
             (event) -> [String: Any?] in self.transformer!.transformEKEvent(event)
         }
         call.resolve(self.transformer!.transformList(events))

@@ -44,12 +44,14 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
 
   async stopSound(): Promise<void> { return; };
 
-  async checkPermissionCalendar(): Promise<PermissionStatus> {
+  // Calendar
+
+  async checkCalendarPermission(): Promise<PermissionStatus> {
     console.log('calendar plugin not available on web');
     return { status: 'denied'} ;
   }
 
-  async requestPermissionsCalendar(): Promise<PermissionStatus> {
+  async requestCalendarPermissions(): Promise<PermissionStatus> {
     console.log('calendar plugin not available on web');
     return { status: 'denied'} ;
   }
@@ -59,17 +61,17 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
     throw this.unimplemented('calendar plugin not available on web',);
   }
 
-  async createEvent(options: EventCreateOpts): Promise<IEvent> {
+  async createCalendarEvent(options: EventCreateOpts): Promise<IEvent> {
     if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
 
-  async updateEvent(options: EventUpdateOpts): Promise<IEvent> {
+  async updateCalendarEvent(options: EventUpdateOpts): Promise<IEvent> {
     if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
 
-  async deleteEvent(options: EventDeleteOpts): Promise<any> {
+  async deleteCalendarEvent(options: EventDeleteOpts): Promise<any> {
     if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }
@@ -78,7 +80,7 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
     throw this.unimplemented('calendar plugin not available on web');
   }
 
-  listEvents(options: EventListOpts): Promise<Results<IEvent>> {
+  listCalendarEvents(options: EventListOpts): Promise<Results<IEvent>> {
     if (options) { console.log('calendar plugin not available on web'); };
     throw this.unimplemented('calendar plugin not available on web');
   }

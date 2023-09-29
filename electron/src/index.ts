@@ -131,12 +131,12 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async checkPermissionCalendar():  Promise<any> {
+  async checkCalendarPermission():  Promise<any> {
     console.log('calendar plugin not available on web');
     return { status: 'denied'} ;
   }
 
-  async requestPermissionsCalendar():  Promise<any> {
+  async requestCalendarPermissions():  Promise<any> {
     console.log('calendar plugin not available on web');
     return { status: 'denied'} ;
   }
@@ -147,19 +147,19 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return {} ;
   }
 
-  async createEvent(options: any): Promise<any> {
+  async createCalendarEvent(options: any): Promise<any> {
     if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
   }
 
-  async updateEvent(options: any): Promise<any> {
+  async updateCalendarEvent(options: any): Promise<any> {
     if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
   }
 
-  async deleteEvent(options: any): Promise<any> {
+  async deleteCalendarEvent(options: any): Promise<any> {
     if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return {} ;
@@ -170,7 +170,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return ({} as any);
   }
 
-  listEvents(options: any): Promise<any> {
+  listCalendarEvents(options: any): Promise<any> {
     if (options) { console.log('calendar plugin not available on web'); };
     console.log('calendar plugin not available on web');
     return ({} as any);

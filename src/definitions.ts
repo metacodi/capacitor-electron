@@ -54,8 +54,8 @@ export interface ICalendar {
 }
 
 export interface IEvent {
+  uniqueId: string;
   id: string;
-  calendarId: string;
   title: string;
   start: string;
   end: string;

@@ -333,15 +333,15 @@ listEvents(options: EventListOpts) => Promise<Results<IEvent>>
 
 #### IEvent
 
-| Prop             | Type                                                     |
-| ---------------- | -------------------------------------------------------- |
-| **`id`**         | <code>string</code>                                      |
-| **`calendarId`** | <code>string</code>                                      |
-| **`title`**      | <code>string</code>                                      |
-| **`start`**      | <code>string</code>                                      |
-| **`end`**        | <code>string</code>                                      |
-| **`location`**   | <code>{ name: string; lat: number; lon: number; }</code> |
-| **`notes`**      | <code>string</code>                                      |
+| Prop           | Type                                                     |
+| -------------- | -------------------------------------------------------- |
+| **`uniqueId`** | <code>string</code>                                      |
+| **`id`**       | <code>string</code>                                      |
+| **`title`**    | <code>string</code>                                      |
+| **`start`**    | <code>string</code>                                      |
+| **`end`**      | <code>string</code>                                      |
+| **`location`** | <code>{ name: string; lat: number; lon: number; }</code> |
+| **`notes`**    | <code>string</code>                                      |
 
 
 #### EventCreateOpts

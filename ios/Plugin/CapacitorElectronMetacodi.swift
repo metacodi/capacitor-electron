@@ -39,7 +39,8 @@ enum CapacitorElectronMetacodiError: Error {
         title: String,
         start: Date,
         end: Date,
-        location: EKStructuredLocation?
+        location: EKStructuredLocation?,
+        notes: String?
     ) throws -> EKEvent {
         let source = try self.getCalendarSource()
 
@@ -57,6 +58,7 @@ enum CapacitorElectronMetacodiError: Error {
         event.startDate = start
         event.endDate = end
         event.structuredLocation = location
+        event.notes = notes
 
         try self.store.save(event, span: EKSpan.thisEvent)
         return event
@@ -67,7 +69,8 @@ enum CapacitorElectronMetacodiError: Error {
         title: String?,
         start: Date?,
         end: Date?,
-        location: EKStructuredLocation?
+        location: EKStructuredLocation?,
+        notes: String?
     ) throws -> EKEvent {
         guard let event = self.store.event(withIdentifier: eventId) else {
             throw CalendarError.NoEventFound(id: eventId)
@@ -84,6 +87,9 @@ enum CapacitorElectronMetacodiError: Error {
         }
         if location != nil {
             event.structuredLocation = location
+        }
+        if notes != nil {
+            event.notes = notes
         }
 
         try self.store.save(event, span: EKSpan.thisEvent)

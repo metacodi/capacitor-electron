@@ -118,9 +118,13 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
 
             structuredLocation?.geoLocation = location
         }
+        let hasNotes = false
+        if let notes = call.getObject("notes") {
+            hasNotes = true
+        }
         do {
             let event = try self.implementation.createEvent(
-                calendar: calendar, title: title, start: start, end: end, location: structuredLocation)
+                calendar: calendar, title: title, start: start, end: end, location: structuredLocation, notes: notes, hasNotes: hasNotes)
             call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
             call.reject("Failed to create event: \(error)")
@@ -144,9 +148,13 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             )
             structuredLocation?.geoLocation = location
         }
+        let hasNotes = false
+        if let notes = call.getObject("notes") {
+            hasNotes = true
+        }
         do {
             let event = try self.implementation.updateEvent(
-                eventId: event, title: title, start: start, end: end, location: structuredLocation)
+                eventId: event, title: title, start: start, end: end, location: structuredLocation, notes: notes, hasNotes: hasNotes)
             call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
             call.reject("Failed to update event: \(error)")

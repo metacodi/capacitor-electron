@@ -45,11 +45,11 @@ enum CapacitorElectronMetacodiError: Error {
         let source = try self.getCalendarSource()
 
         guard let calendar = self.getCalendarById(calendar, source: source) else {
-            throw CalendarError.NoCalendarForName(name: calendar)
+            throw CapacitorElectronMetacodiError.NoCalendarForName(name: calendar)
         }
 
         // guard let calendar = self.getCalendarByName(calendar, source: source) else {
-        //     throw CalendarError.NoCalendarForName(name: calendar)
+        //     throw CapacitorElectronMetacodiError.NoCalendarForName(name: calendar)
         // }
 
         let event = EKEvent(eventStore: self.store)
@@ -153,7 +153,7 @@ enum CapacitorElectronMetacodiError: Error {
         let iCloud = self.store.sources.first(where: { $0.title == "iCloud" }) // this is fragile, user can rename the source
         let local = self.store.sources.first(where: { $0.sourceType == .local })
         if defaultSource == nil && local == nil && iCloud == nil {
-            throw CalendarError.NoCalendarSource
+            throw CapacitorElectronMetacodiError.NoCalendarSource
         }
         return defaultSource ?? iCloud ?? local
     }

@@ -10,6 +10,7 @@ import EventKit
             "title": event.title,
             "start": event.startDate,
             "end": event.endDate,
+            "notes": event.notes,
             "location": [
                 "name": event.structuredLocation?.title as Any,
                 "lat": Double(event.structuredLocation?.geoLocation?.coordinate.latitude ?? 0),

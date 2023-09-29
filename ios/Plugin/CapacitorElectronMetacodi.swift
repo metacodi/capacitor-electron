@@ -73,7 +73,7 @@ enum CapacitorElectronMetacodiError: Error {
         notes: String?
     ) throws -> EKEvent {
         guard let event = self.store.event(withIdentifier: eventId) else {
-            throw CalendarError.NoEventFound(id: eventId)
+            throw CapacitorElectronMetacodiError.NoEventFound(id: eventId)
         }
 
         if title != nil {

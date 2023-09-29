@@ -100,7 +100,7 @@ enum CapacitorElectronMetacodiError: Error {
         eventId: String
     ) throws {
         guard let event = self.store.event(withIdentifier: eventId) else {
-            throw CalendarError.NoEventFound(id: eventId)
+            throw CapacitorElectronMetacodiError.NoEventFound(id: eventId)
         }
         try self.store.remove(event, span: EKSpan.thisEvent)
     }

@@ -83,7 +83,7 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
         do {
             let calendar = try self.implementation.createCalendar(name: name)
             call.resolve(self.transformer!.transformEKCalendar(calendar) as PluginCallResultData)
-        } catch CalendarError.NoCalendarSource {
+        } catch CapacitorElectronMetacodiError.NoCalendarSource {
             call.reject("Failed to create calendar: No source found")
         } catch {
             call.reject("Failed to create calendar: \(error)")

@@ -23,14 +23,14 @@ npx cap sync
 * [`showNotification(...)`](#shownotification)
 * [`playSound(...)`](#playsound)
 * [`stopSound()`](#stopsound)
-* [`checkPermissionCalendar()`](#checkpermissioncalendar)
-* [`requestPermissionsCalendar()`](#requestpermissionscalendar)
+* [`checkCalendarPermission()`](#checkcalendarpermission)
+* [`requestCalendarPermissions()`](#requestcalendarpermissions)
 * [`listCalendars()`](#listcalendars)
 * [`createCalendar(...)`](#createcalendar)
-* [`createEvent(...)`](#createevent)
-* [`updateEvent(...)`](#updateevent)
-* [`deleteEvent(...)`](#deleteevent)
-* [`listEvents(...)`](#listevents)
+* [`createCalendarEvent(...)`](#createcalendarevent)
+* [`updateCalendarEvent(...)`](#updatecalendarevent)
+* [`deleteCalendarEvent(...)`](#deletecalendarevent)
+* [`listCalendarEvents(...)`](#listcalendarevents)
 * [Interfaces](#interfaces)
 * [Type Aliases](#type-aliases)
 
@@ -183,10 +183,10 @@ Stop Sound
 --------------------
 
 
-### checkPermissionCalendar()
+### checkCalendarPermission()
 
 ```typescript
-checkPermissionCalendar() => Promise<PermissionStatus>
+checkCalendarPermission() => Promise<PermissionStatus>
 ```
 
 **Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
@@ -194,10 +194,10 @@ checkPermissionCalendar() => Promise<PermissionStatus>
 --------------------
 
 
-### requestPermissionsCalendar()
+### requestCalendarPermissions()
 
 ```typescript
-requestPermissionsCalendar() => Promise<PermissionStatus>
+requestCalendarPermissions() => Promise<PermissionStatus>
 ```
 
 **Returns:** <code>Promise&lt;<a href="#permissionstatus">PermissionStatus</a>&gt;</code>
@@ -231,10 +231,10 @@ createCalendar(options: CalendarCreateOpts) => Promise<ICalendar>
 --------------------
 
 
-### createEvent(...)
+### createCalendarEvent(...)
 
 ```typescript
-createEvent(options: EventCreateOpts) => Promise<IEvent>
+createCalendarEvent(options: EventCreateOpts) => Promise<IEvent>
 ```
 
 | Param         | Type                                                        |
@@ -246,10 +246,10 @@ createEvent(options: EventCreateOpts) => Promise<IEvent>
 --------------------
 
 
-### updateEvent(...)
+### updateCalendarEvent(...)
 
 ```typescript
-updateEvent(options: EventUpdateOpts) => Promise<IEvent>
+updateCalendarEvent(options: EventUpdateOpts) => Promise<IEvent>
 ```
 
 | Param         | Type                                                        |
@@ -261,10 +261,10 @@ updateEvent(options: EventUpdateOpts) => Promise<IEvent>
 --------------------
 
 
-### deleteEvent(...)
+### deleteCalendarEvent(...)
 
 ```typescript
-deleteEvent(options: EventDeleteOpts) => Promise<any>
+deleteCalendarEvent(options: EventDeleteOpts) => Promise<any>
 ```
 
 | Param         | Type                                                        |
@@ -276,10 +276,10 @@ deleteEvent(options: EventDeleteOpts) => Promise<any>
 --------------------
 
 
-### listEvents(...)
+### listCalendarEvents(...)
 
 ```typescript
-listEvents(options: EventListOpts) => Promise<Results<IEvent>>
+listCalendarEvents(options: EventListOpts) => Promise<Results<IEvent>>
 ```
 
 | Param         | Type                                                    |

@@ -125,15 +125,15 @@ export interface CapacitorElectronMetacodiPlugin {
    */
   stopSound(): Promise<void>;
 
-  checkPermissionCalendar(): Promise<PermissionStatus>;
+  checkCalendarPermission(): Promise<PermissionStatus>;
 
-  requestPermissionsCalendar(): Promise<PermissionStatus>;
+  requestCalendarPermissions(): Promise<PermissionStatus>;
 
   listCalendars(): Promise<Results<ICalendar>>;
   createCalendar(options: CalendarCreateOpts): Promise<ICalendar>;
-  createEvent(options: EventCreateOpts): Promise<IEvent>;
-  updateEvent(options: EventUpdateOpts): Promise<IEvent>;
-  deleteEvent(options: EventDeleteOpts): Promise<any>;
-  listEvents(options: EventListOpts): Promise<Results<IEvent>>;
+  createCalendarEvent(options: EventCreateOpts): Promise<IEvent>;
+  updateCalendarEvent(options: EventUpdateOpts): Promise<IEvent>;
+  deleteCalendarEvent(options: EventDeleteOpts): Promise<any>;
+  listCalendarEvents(options: EventListOpts): Promise<Results<IEvent>>;
 
 }

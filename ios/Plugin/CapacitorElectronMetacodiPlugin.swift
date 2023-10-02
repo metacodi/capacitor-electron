@@ -122,11 +122,11 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             call.reject("Must provide a notes for the event")
             return
         }
-        guard let firstReminderMinutes = call.getString("firstReminderMinutes") else {
+        guard let firstReminderMinutes = call.getDouble("firstReminderMinutes") else {
             call.reject("Must provide a firstReminderMinutes for the event")
             return
         }
-        guard let secondReminderMinutes = call.getString("secondReminderMinutes") else {
+        guard let secondReminderMinutes = call.getDouble("secondReminderMinutes") else {
             call.reject("Must provide a secondReminderMinutes for the event")
             return
         }

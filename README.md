@@ -346,14 +346,16 @@ listCalendarEvents(options: EventListOpts) => Promise<Results<IEvent>>
 
 #### EventCreateOpts
 
-| Prop           | Type                                                     |
-| -------------- | -------------------------------------------------------- |
-| **`calendar`** | <code>string</code>                                      |
-| **`title`**    | <code>string</code>                                      |
-| **`start`**    | <code><a href="#date">Date</a></code>                    |
-| **`end`**      | <code><a href="#date">Date</a></code>                    |
-| **`location`** | <code>{ name: string; lat: number; lon: number; }</code> |
-| **`notes`**    | <code>string</code>                                      |
+| Prop                        | Type                                                     |
+| --------------------------- | -------------------------------------------------------- |
+| **`calendar`**              | <code>string</code>                                      |
+| **`title`**                 | <code>string</code>                                      |
+| **`start`**                 | <code><a href="#date">Date</a></code>                    |
+| **`end`**                   | <code><a href="#date">Date</a></code>                    |
+| **`location`**              | <code>{ name: string; lat: number; lon: number; }</code> |
+| **`notes`**                 | <code>string</code>                                      |
+| **`firstReminderMinutes`**  | <code>number</code>                                      |
+| **`secondReminderMinutes`** | <code>number</code>                                      |
 
 
 #### Date

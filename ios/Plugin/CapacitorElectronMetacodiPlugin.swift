@@ -122,9 +122,17 @@ public class CapacitorElectronMetacodiPlugin: CAPPlugin {
             call.reject("Must provide a notes for the event")
             return
         }
+        guard let firstReminderMinutes = call.getString("firstReminderMinutes") else {
+            call.reject("Must provide a firstReminderMinutes for the event")
+            return
+        }
+        guard let secondReminderMinutes = call.getString("secondReminderMinutes") else {
+            call.reject("Must provide a secondReminderMinutes for the event")
+            return
+        }
         do {
             let event = try self.implementation.createCalendarEvent(
-                calendar: calendar, title: title, start: start, end: end, location: structuredLocation, notes: notes)
+                calendar: calendar, title: title, start: start, end: end, location: structuredLocation, notes: notes, firstReminderMinutes: firstReminderMinutes, secondReminderMinutes: secondReminderMinutes)
             call.resolve(self.transformer!.transformEKEvent(event) as PluginCallResultData)
         } catch {
             call.reject("Failed to create event: \(error)")

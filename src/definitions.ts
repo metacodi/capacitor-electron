@@ -22,6 +22,8 @@ export interface EventCreateOpts {
     lon: number;
   };
   notes: string;
+  firstReminderMinutes: number;
+  secondReminderMinutes: number;
 }
 
 export interface EventUpdateOpts {

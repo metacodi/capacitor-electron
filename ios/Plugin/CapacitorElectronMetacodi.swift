@@ -43,8 +43,8 @@ enum CapacitorElectronMetacodiError: Error {
         end: Date,
         location: EKStructuredLocation?,
         notes: String?,
-        firstReminderMinutes: number?,
-        secondReminderMinutes: number?
+        firstReminderMinutes: Double,
+        secondReminderMinutes: Double
     ) throws -> EKEvent {
         let source = try self.getCalendarSource()
 
@@ -64,13 +64,17 @@ enum CapacitorElectronMetacodiError: Error {
         event.structuredLocation = location
         event.notes = notes
         
-       // Create an alarm {@link https://developer.apple.com/documentation/eventkit/ekalarm}
-        let alarm30mins = EKAlarm(relativeOffset: -(firstReminderMinutes * 60)) // Set the alarm to go off firstReminderMinutes minutes before the event
-        let alarm5mins = EKAlarm(relativeOffset: -(secondReminderMinutes * 60)) // Set the alarm to go off secondReminderMinutes minutes before the event
-
         // Add the alarms to the event
-        event.addAlarm(alarm30mins)
-        event.addAlarm(alarm5mins)
+        // Create an alarm {@link https://developer.apple.com/documentation/eventkit/ekalarm}
+        let alarm5mins = EKAlarm(relativeOffset: -(secondReminderMinutes * 60)) // Set the alarm to go off secondReminderMinutes minutes before the event
+        if firstReminderMinutes > 0 {
+            let firstReminderMinutes = EKAlarm(relativeOffset: -(firstReminderMinutes * 60)) // Set the alarm to go off firstReminderMinutes minutes before the event
+            event.addAlarm(firstReminderMinutes)
+        }
+        if secondReminderMinutes > 0 {
+            let secondReminderMinutes = EKAlarm(relativeOffset: -(secondReminderMinutes * 60)) // Set the alarm to go off secondReminderMinutes minutes before the event
+            event.addAlarm(secondReminderMinutes)
+        }
         
         try self.store.save(event, span: EKSpan.thisEvent)
         return event

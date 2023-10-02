@@ -34,6 +34,8 @@ enum CapacitorElectronMetacodiError: Error {
         return calendar
     }
 
+    // {@link https://developer.apple.com/documentation/eventkit/ekevent }
+
     @objc public func createCalendarEvent(
         calendar: String,
         title: String,
@@ -59,6 +61,14 @@ enum CapacitorElectronMetacodiError: Error {
         event.endDate = end
         event.structuredLocation = location
         event.notes = notes
+        
+        // Create an alarm
+        let alarm30mins = EKAlarm(relativeOffset: -1800) // Set the alarm to go off 30 minutes before the event
+        let alarm5mins = EKAlarm(relativeOffset: -300) // Set the alarm to go off 30 minutes before the event
+
+        // Add the alarms to the event
+        event.addAlarm(alarm30mins)
+        event.addAlarm(alarm5mins)
 
         try self.store.save(event, span: EKSpan.thisEvent)
         return event

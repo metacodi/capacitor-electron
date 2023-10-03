@@ -42,7 +42,7 @@ enum CapacitorElectronMetacodiError: Error {
         start: Date,
         end: Date,
         location: EKStructuredLocation?,
-        notes: String?,
+        notes: String? = nil,
         firstReminderMinutes: Double,
         secondReminderMinutes: Double
     ) throws -> EKEvent {
@@ -62,11 +62,14 @@ enum CapacitorElectronMetacodiError: Error {
         event.startDate = start
         event.endDate = end
         event.structuredLocation = location
-        event.notes = notes
+        
+        if ((notes?.isEmpty) == nil) {
+            event.notes = notes
+        }
         
         // Add the alarms to the event
         // Create an alarm {@link https://developer.apple.com/documentation/eventkit/ekalarm}
-        let alarm5mins = EKAlarm(relativeOffset: -(secondReminderMinutes * 60)) // Set the alarm to go off secondReminderMinutes minutes before the event
+        
         if firstReminderMinutes > 0 {
             let firstReminderMinutes = EKAlarm(relativeOffset: -(firstReminderMinutes * 60)) // Set the alarm to go off firstReminderMinutes minutes before the event
             event.addAlarm(firstReminderMinutes)

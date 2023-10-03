@@ -150,15 +150,15 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
     }
 
     @PluginMethod()
-    public void createEvent(PluginCall call) {
+    public void createCalendarEvent(PluginCall call) {
       if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
-        createCalendarEvent(call);
+        createCalendarEventImplementation(call);
       }
     }
 
-    protected void createCalendarEvent(PluginCall call) {
+    protected void createCalendarEventImplementation(PluginCall call) {
       ContentResolver cr = this.getActivity().getContentResolver();
       ContentValues values = new ContentValues();
       JSObject data = call.getData();
@@ -241,7 +241,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
     }
 
     @PluginMethod()
-    public void findEvent(PluginCall call) {
+    public void listCalendarEvents(PluginCall call) {
       if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
@@ -315,55 +315,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
     }
 
     @PluginMethod()
-    public void deleteEvent(PluginCall call) {
-      if (!hasPermissions()) {
-        requestPermissionsCalendar(call);
-      } else {
-        deleteCalendarEvents(call);
-      }
-    }
-
-    protected void deleteCalendarEvents(PluginCall call) {
-      ContentResolver cr = this.getActivity().getContentResolver();
-      JSObject data = call.getData();
-      JSObject ret = new JSObject();
-      Long now = new Date().getTime();
-
-      String eventId = null;
-      String title = null;
-      String location = null;
-      String notes = null;
-      Long startFrom = 0l;
-      Long startTo = 0l;
-
-      try {
-        eventId = data.getString("id", null);
-        title = data.getString("title", null);
-        location = data.getString("location", null);
-        notes = data.getString("notes", null);
-
-        startFrom = data.has("startDate") ? data.getLong("startDate") : now - DateUtils.DAY_IN_MILLIS * 1000;
-        startTo = data.has("endDate") ? data.getLong("endDate") : now + DateUtils.DAY_IN_MILLIS * 1000;
-      } catch (Exception e) {
-        Log.e(LOG_TAG, "Fail to parse data", e);
-        call.reject(e.getMessage());
-      }
-
-      Event[] events = fetchEventInstances(eventId, title, location, notes, startFrom, startTo);
-      int nrDeletedRecords = 0;
-      if (events != null) {
-        for (Event event : events) {
-          Uri eventUri = ContentUris.withAppendedId(Events.CONTENT_URI, Integer.parseInt(event.eventId));
-          nrDeletedRecords += cr.delete(eventUri, null, null);
-        }
-      }
-
-      ret.put("result", nrDeletedRecords > 0);
-      call.resolve(ret);
-    }
-
-    @PluginMethod()
-    public void deleteEventById(PluginCall call) {
+    public void deleteCalendarEvent(PluginCall call) {
       if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
@@ -685,7 +637,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
     }
 
     @PluginMethod()
-    public void getAvailableCalendars(PluginCall call) {
+    public void listCalendars(PluginCall call) {
       if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {

@@ -29,17 +29,17 @@ public class Event {
     public JSONObject toJSONObject() {
         JSONObject obj = new JSONObject();
         try {
-            obj.put("id", this.eventId);
-            obj.putOpt("message", this.message);
+            obj.put("uniqueId", this.eventId);
+            obj.putOpt("notes", this.message);
             obj.putOpt("location", this.location);
             obj.putOpt("title", this.title);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             sdf.setTimeZone(TimeZone.getDefault());
             if (this.startDate != null) {
-                obj.put("startDate", sdf.format(new Date(Long.parseLong(this.startDate))));
+                obj.put("start", sdf.format(new Date(Long.parseLong(this.startDate))));
             }
             if (this.endDate != null) {
-                obj.put("endDate", sdf.format(new Date(Long.parseLong(this.endDate))));
+                obj.put("end", sdf.format(new Date(Long.parseLong(this.endDate))));
             }
             obj.put("allday", this.allDay);
             if (this.recurring) {

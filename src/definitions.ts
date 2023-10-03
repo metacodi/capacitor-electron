@@ -1,77 +1,6 @@
-import type { PermissionState, PluginListenerHandle } from '@capacitor/core';
+import type { PluginListenerHandle } from '@capacitor/core';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { BrowserWindowConstructorOptions } from 'electron';
-
-export interface PermissionStatus {
-  status: PermissionState;
-}
-
-
-export interface CalendarCreateOpts {
-  name: string;
-}
-
-export interface EventCreateOpts {
-  calendar: string;
-  title: string;
-  start: Date;
-  end: Date;
-  location?: {
-    name: string;
-    lat: number;
-    lon: number;
-  };
-  notes?: string;
-  firstReminderMinutes?: number;
-  secondReminderMinutes?: number;
-}
-
-export interface EventUpdateOpts {
-  event: string;
-  title?: string;
-  start?: Date;
-  end?: Date;
-  location?: {
-    name: string;
-    lat: number;
-    lon: number;
-  };
-  notes: string;
-}
-
-export interface EventDeleteOpts {
-  event: string;
-}
-
-export interface EventListOpts {
-  start: Date;
-  end: Date;
-  calendars: string[];
-}
-
-export interface ICalendar {
-  id: string;
-  name: string;
-  color: string;
-}
-
-export interface IEvent {
-  uniqueId: string;
-  id: string;
-  title: string;
-  start: string;
-  end: string;
-  location: {
-    name: string;
-    lat: number;
-    lon: number;
-  };
-  notes: string;
-}
-
-export interface Results<T> {
-  results: T[];
-}
 
 export interface CapacitorElectronMetacodiPlugin {
   addListener(
@@ -126,16 +55,5 @@ export interface CapacitorElectronMetacodiPlugin {
    * Stop Sound
    */
   stopSound(): Promise<void>;
-
-  checkCalendarPermission(): Promise<PermissionStatus>;
-
-  requestCalendarPermissions(): Promise<PermissionStatus>;
-
-  listCalendars(): Promise<Results<ICalendar>>;
-  createCalendar(options: CalendarCreateOpts): Promise<ICalendar>;
-  createCalendarEvent(options: EventCreateOpts): Promise<IEvent>;
-  updateCalendarEvent(options: EventUpdateOpts): Promise<IEvent>;
-  deleteCalendarEvent(options: EventDeleteOpts): Promise<any>;
-  listCalendarEvents(options: EventListOpts): Promise<Results<IEvent>>;
 
 }

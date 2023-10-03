@@ -131,48 +131,4 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async checkCalendarPermission():  Promise<any> {
-    console.log('calendar plugin not available on web');
-    return { status: 'denied'} ;
-  }
-
-  async requestCalendarPermissions():  Promise<any> {
-    console.log('calendar plugin not available on web');
-    return { status: 'denied'} ;
-  }
-
-  async createCalendar(options: any): Promise<any> {
-    if (options) { console.log('calendar plugin not available on web'); };
-    console.log('calendar plugin not available on web');
-    return {} ;
-  }
-
-  async createCalendarEvent(options: any): Promise<any> {
-    if (options) { console.log('calendar plugin not available on web'); };
-    console.log('calendar plugin not available on web');
-    return {} ;
-  }
-
-  async updateCalendarEvent(options: any): Promise<any> {
-    if (options) { console.log('calendar plugin not available on web'); };
-    console.log('calendar plugin not available on web');
-    return {} ;
-  }
-
-  async deleteCalendarEvent(options: any): Promise<any> {
-    if (options) { console.log('calendar plugin not available on web'); };
-    console.log('calendar plugin not available on web');
-    return {} ;
-  }
-
-  listCalendars(): Promise<any> {
-    console.log('calendar plugin not available on web');
-    return ({} as any);
-  }
-
-  listCalendarEvents(options: any): Promise<any> {
-    if (options) { console.log('calendar plugin not available on web'); };
-    console.log('calendar plugin not available on web');
-    return ({} as any);
-  }
 }

@@ -151,7 +151,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod()
     public void createEvent(PluginCall call) {
-      if (!hasRequiredPermissions()) {
+      if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
         createCalendarEvent(call);
@@ -242,7 +242,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod()
     public void findEvent(PluginCall call) {
-      if (!hasRequiredPermissions()) {
+      if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
         findCalendarEvents(call);
@@ -316,7 +316,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod()
     public void deleteEvent(PluginCall call) {
-      if (!hasRequiredPermissions()) {
+      if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
         deleteCalendarEvents(call);
@@ -364,7 +364,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod()
     public void deleteEventById(PluginCall call) {
-      if (!hasRequiredPermissions()) {
+      if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
         deleteCalendarEventById(call);
@@ -402,7 +402,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod()
     public void updateEvent(PluginCall call) {
-      if (!hasRequiredPermissions()) {
+      if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
         updateCalendarEvent(call);
@@ -686,7 +686,7 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod()
     public void getAvailableCalendars(PluginCall call) {
-      if (!hasRequiredPermissions()) {
+      if (!hasPermissions()) {
         requestPermissionsCalendar(call);
       } else {
         List<Calendar> availableCalendars = getAvailableCalendarsList();

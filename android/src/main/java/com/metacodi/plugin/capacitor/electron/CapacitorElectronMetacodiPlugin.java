@@ -60,8 +60,18 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
 
     @PluginMethod
     public void checkCalendarPermission(PluginCall call) {
-        String status = getPermissionState("calendar");
-        
+        String status = "";
+        switch (getPermissionState("calendar")) {
+          case GRANTED:
+            status = "granted";
+            break;
+          case DENIED:
+            status = "denied";
+            break;
+          case PROMPT:
+            status = "prompt";
+            break;
+        }
         JSObject ret = new JSObject();
         ret.put("status", status);
         call.resolve(ret);

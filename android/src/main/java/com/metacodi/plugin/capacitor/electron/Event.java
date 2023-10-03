@@ -1,4 +1,4 @@
-package cz.firest.calendar;
+package com.metacodi.plugin.capacitor.electron;
 
 import org.json.JSONException;
 import org.json.JSONObject;

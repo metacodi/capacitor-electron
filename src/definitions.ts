@@ -21,9 +21,9 @@ export interface EventCreateOpts {
     lat: number;
     lon: number;
   };
-  notes: string;
-  firstReminderMinutes: number;
-  secondReminderMinutes: number;
+  notes?: string;
+  firstReminderMinutes?: number;
+  secondReminderMinutes?: number;
 }
 
 export interface EventUpdateOpts {

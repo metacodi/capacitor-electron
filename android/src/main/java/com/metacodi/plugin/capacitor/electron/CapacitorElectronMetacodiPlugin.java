@@ -92,10 +92,6 @@ public class CapacitorElectronMetacodiPlugin extends Plugin {
     public void requestCalendarPermissions(PluginCall call) {
         requestPermissionsCalendar(call);
         
-        String status = getPermissionState("calendar");
-        
-        JSObject ret = new JSObject();
-        ret.put("status", status);
-        call.resolve(ret);
+        checkCalendarPermission(call);
     }
 }

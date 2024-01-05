@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import type { PluginListenerHandle } from '@capacitor/core';
 import type { BrowserWindowConstructorOptions, NotificationConstructorOptions } from 'electron';
 import { BrowserWindow, app, Notification, clipboard } from 'electron';
 
@@ -14,15 +13,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   isPlay = false;
 
   constructor() { }
-  addListener(
-    eventName: 'ping',
-    listenerFunc: () => void
-  ): Promise<PluginListenerHandle> & PluginListenerHandle {
-    console.log(eventName, listenerFunc);
-    // return;
-    throw new Error('Method not implemented.');
-  }
-
+  
   async exitApp(): Promise<void> { app.quit(); };
 
 

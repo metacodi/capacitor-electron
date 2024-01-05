@@ -57,4 +57,4 @@ project.initialize().then(async () => {
   Terminal.log(chalk.green(`npm install ` + chalk.bold(`@metacodi/capacitor-electron@${pkg.version}`) + ' --save'));
 
   Terminal.line();
-});
+}).catch((error) => { Terminal.error(error)});

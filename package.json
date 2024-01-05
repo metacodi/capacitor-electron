@@ -1,6 +1,6 @@
 {
   "name": "@metacodi/capacitor-electron",
-  "version": "5.0.53",
+  "version": "5.0.52",
   "description": "Capacitor metacodi electron plugin for Capacitor v.3",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -40,8 +40,8 @@
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api CapacitorElectronMetacodiPlugin --output-readme README.md --output-json dist/docs.json",
-    "build": "tsc && rollup -c rollup.config.js && npm run build-electron",
-    "build-electron": "tsc --project electron/tsconfig.json && rollup -c electron/rollup.config.js",
+    "build": "npm run clean && tsc && rollup -c rollup.config.js && npm run build-electron",
+    "build-electron": "tsc --project electron/tsconfig.json && rollup -c electron/rollup.config.js && rimraf ./electron/build",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"

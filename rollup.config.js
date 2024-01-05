@@ -1,8 +1,18 @@
 export default {
-  input: 'electron/build/electron/src/index.js',
+  input: 'dist/esm/index.js',
   output: [
     {
-      file: 'electron/dist/plugin.js',
+      file: 'dist/plugin.js',
+      format: 'iife',
+      name: 'capacitorCapacitorElectronMetacodi',
+      globals: {
+        '@capacitor/core': 'capacitorExports',
+      },
+      sourcemap: true,
+      inlineDynamicImports: true,
+    },
+    {
+      file: 'dist/plugin.cjs.js',
       format: 'cjs',
       sourcemap: true,
       inlineDynamicImports: true,

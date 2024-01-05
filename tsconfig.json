@@ -1,19 +1,20 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
     "declaration": true,
-    "experimentalDecorators": true,
-    "noEmitHelpers": true,
-    "importHelpers": true,
-    "lib": ["dom", "es2020"],
-    "module": "commonjs",
-    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "inlineSources": true,
+    "lib": ["dom", "es2017"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "build",
+    "outDir": "dist/esm",
+    "pretty": true,
     "sourceMap": true,
-    "strict": false,
-    "target": "ES2017"
+    "strict": true,
+    "target": "es2017"
   },
-  "include": ["src/**/*"]
+  "files": ["src/index.ts"]
 }

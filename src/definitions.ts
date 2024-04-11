@@ -54,7 +54,7 @@ export interface CapacitorElectronMetacodiPlugin {
   /**
    * Execute Command
    */
-  execute(options: { command: string }): Promise<any>;
+  execute(options: { command: string, args?: string }): Promise<any>;
 
 
 

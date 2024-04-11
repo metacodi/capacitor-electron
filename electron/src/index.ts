@@ -122,18 +122,18 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async execute(options: { command: string }): Promise<any> {
+  async execute(options: { command: string, args?: string }): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const path = require('path');
       const { exec } = require("child_process");
       let urlCommand = '';
       if (process.platform === 'darwin') {
         const pathApp = app.getPath('exe');
-        urlCommand = path.join(pathApp, '../../assets/', options.command);
+        urlCommand = path.join(options.command, pathApp, '../../assets/', options.args);
       } else if (process.platform === 'win32') {
         let pathApp = app.getAppPath().replace('/resources/app.asar', '');
         pathApp = pathApp.replace('/app.asar', '');
-        urlCommand = path.join(pathApp, '../assets/', options.command);
+        urlCommand = path.join(options.command, pathApp, '../assets/', options.args);
         urlCommand = urlCommand.replace('\\\\', '\\');
       }
 

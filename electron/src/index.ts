@@ -122,12 +122,12 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async execute(options: { command: string, pathApp?: boolean, args?: string }): Promise<any> {
+  async execute(options: { command: string, forcePathApp?: boolean, args?: string }): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const path = require('path');
       const { exec } = require("child_process");
       if (!options.args === undefined) { options.args = ''; }
-      if (!options.pathApp === undefined) { options.pathApp = false; }
+      if (!options.forcePathApp === undefined) { options.forcePathApp = false; }
       let urlCommand = '';
       if (process.platform === 'darwin') {
         const pathApp = app.getPath('exe');
@@ -138,7 +138,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         urlCommand = path.join(pathApp, '../assets/', options.args);
         urlCommand = urlCommand.replace('\\\\', '\\');
       }
-      const command = options.pathApp? `${options.command} ${urlCommand}` : `${options.command} ${options.args}`;
+      const command = options.forcePathApp? `${options.command} ${urlCommand}` : `${options.command} ${options.args}`;
       exec(command, (error: any, stdout: any, stderr: any) => {
         if (error) {
           // console.log(`error: ${error.message}`);

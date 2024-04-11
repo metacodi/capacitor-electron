@@ -129,15 +129,15 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       let urlCommand = '';
       if (process.platform === 'darwin') {
         const pathApp = app.getPath('exe');
-        urlCommand = path.join(options.command, pathApp, '../../assets/', options.args);
+        urlCommand = path.join(pathApp, '../../assets/', options.args);
       } else if (process.platform === 'win32') {
         let pathApp = app.getAppPath().replace('/resources/app.asar', '');
         pathApp = pathApp.replace('/app.asar', '');
-        urlCommand = path.join(options.command, pathApp, '../assets/', options.args);
+        urlCommand = path.join(pathApp, '../assets/', options.args);
         urlCommand = urlCommand.replace('\\\\', '\\');
       }
 
-      exec(urlCommand, (error: any, stdout: any, stderr: any) => {
+      exec(options.command + ' ' + urlCommand, (error: any, stdout: any, stderr: any) => {
         if (error) {
           // console.log(`error: ${error.message}`);
           reject(error.message)

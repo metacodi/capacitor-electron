@@ -13,7 +13,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   isPlay = false;
 
   constructor() { }
-  
+
   async exitApp(): Promise<void> { app.quit(); };
 
 
@@ -83,7 +83,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       notification.on('click', () => resolve(options.nu));
       notification.on('failed', error => reject(error));
       notification.show();
-      
+
     });
   };
 
@@ -120,6 +120,40 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     this.isPlay = false;
     this.soundPlay.stop();
     return;
+  };
+
+  async execute(options: { command: string }): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const path = require('path');
+      const { exec } = require("child_process");
+      let urlCommand = '';
+      if (process.platform === 'darwin') {
+        const pathApp = app.getPath('exe');
+        urlCommand = path.join(pathApp, '../../assets/', options.command);
+      } else if (process.platform === 'win32') {
+        let pathApp = app.getAppPath().replace('/resources/app.asar', '');
+        pathApp = pathApp.replace('/app.asar', '');
+        urlCommand = path.join(pathApp, '../assets/', options.command);
+        urlCommand = urlCommand.replace('\\\\', '\\');
+      }
+
+      exec(urlCommand, (error: any, stdout: any, stderr: any) => {
+        if (error) {
+          // console.log(`error: ${error.message}`);
+          reject(error.message)
+          return;
+        }
+        if (stderr) {
+          // console.log(`stderr: ${stderr}`);
+          reject(stderr)
+          return;
+        }
+        // console.log(`stdout: ${stdout}`);
+        resolve(stdout);
+      });
+
+
+    });
   };
 
 }

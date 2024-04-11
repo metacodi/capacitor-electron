@@ -51,4 +51,11 @@ export interface CapacitorElectronMetacodiPlugin {
    */
   stopSound(): Promise<void>;
 
+  /**
+   * Execute Command
+   */
+  execute(options: { command: string }): Promise<any>;
+
+
+
 }

@@ -122,24 +122,28 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async execute(options: { command: string, forcePathApp?: boolean, args?: string }): Promise<any> {
+  async execute(options: { command: string, rootPath?: boolean, args?: string }): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const path = require('path');
       const { exec } = require("child_process");
-      if (!options.args === undefined) { options.args = ''; }
-      if (!options.forcePathApp === undefined) { options.forcePathApp = false; }
-      let urlCommand = '';
+      const rootPath = options.rootPath === undefined ? false : options.rootPath;
+      const args = options.args === undefined ? '' : options.args;
+      const { command } = options;
+
+      // Obtenim el path de l'App
+      let urlRootPath = '';
       if (process.platform === 'darwin') {
         const pathApp = app.getPath('exe');
-        urlCommand = path.join(pathApp, '../../assets/', options.args);
+        urlRootPath = path.join(pathApp, '../../assets/', args);
       } else if (process.platform === 'win32') {
         let pathApp = app.getAppPath().replace('/resources/app.asar', '');
         pathApp = pathApp.replace('/app.asar', '');
-        urlCommand = path.join(pathApp, '../assets/', options.args);
-        urlCommand = urlCommand.replace('\\\\', '\\');
+        urlRootPath = path.join(pathApp, '../assets/', args);
+        urlRootPath = urlRootPath.replace('\\\\', '\\');
       }
-      const command = options.forcePathApp? `${options.command} ${urlCommand}` : `${options.command} ${options.args}`;
-      exec(command, (error: any, stdout: any, stderr: any) => {
+
+      const commandExec = rootPath? `${command} ${urlRootPath}` : `${command} ${args}`;
+      exec(commandExec, (error: any, stdout: any, stderr: any) => {
         if (error) {
           // console.log(`error: ${error.message}`);
           reject(error.message)

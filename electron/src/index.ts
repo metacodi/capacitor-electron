@@ -155,7 +155,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
           return;
         }
         // console.log(`stdout: ${stdout}`);
-        resolve(stdout);
+        resolve({stdout,commandExec});
       });
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@metacodi/capacitor-electron",
-  "version": "5.0.64",
+  "version": "5.0.67",
   "description": "Capacitor metacodi electron plugin for Capacitor v.3",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -54,7 +54,9 @@
     "@ionic/eslint-config": "^0.3.0",
     "@ionic/prettier-config": "^1.0.1",
     "@ionic/swiftlint-config": "^1.1.2",
-    "@metacodi/precode": "^1.0.89",
+    "@metacodi/node-api-client": "^1.0.17",
+    "@metacodi/node-utils": "^1.0.31",
+    "@metacodi/precode": "^1.0.112",
     "eslint": "^7.11.0",
     "prettier": "~2.3.0",
     "prettier-plugin-java": "~1.0.0",

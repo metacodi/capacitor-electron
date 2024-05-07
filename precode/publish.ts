@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-import { TypescriptProject, Terminal, Resource, Git } from '@metacodi/precode';
+
+import { upgradeDependency, Terminal, Resource, FtpClient, Git } from '@metacodi/node-utils';
+import { TypescriptParser, TypescriptProject } from '@metacodi/precode';
 import chalk from 'chalk';
 import Prompt from 'commander';
 import * as fs from 'fs';
-
+import ts from 'typescript';
 
 /**
  * **Usage**
@@ -37,6 +39,17 @@ const project: TypescriptProject = new TypescriptProject(Prompt.folder);
 project.initialize().then(async () => {
 
   project.incrementPackageVersion();
+
+   // 0) Error: node_modules/@types/node/globals.d.ts:72:13 - error TS2403: Subsequent variable declarations must have the same type. Variable 'AbortSignal'
+    // Prenem la interface de node_modules/typescript/lib/lib.dom.d.ts:2335:13 i la substituim a `globals.d.ts`.
+    // const parser = new TypescriptParser(`node_modules/@types/node/globals.d.ts`);
+    // const variableDeclaration = parser.find((node: ts.Node | ts.Statement) => 
+    //   node.kind === ts.SyntaxKind.VariableDeclaration && ((node as ts.VariableDeclaration).name as ts.Identifier).text === 'AbortSignal'
+    // , { recursive: true, firstOnly: true }) as ts.VariableDeclaration;
+    // const { pos, end } = variableDeclaration.type;
+    // const text = `{ prototype: AbortSignal; new(): AbortSignal; abort(reason?: any): AbortSignal; timeout(milliseconds: number): AbortSignal; }`;
+    // parser.replacements.push({ start: pos, end, text });
+    // parser.save();
 
   if (Resource.exists(`dist`)) {
     Terminal.log(`Eliminant la carpeta de distribució ${chalk.bold(`dist`)}.`);

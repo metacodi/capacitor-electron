@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import type { BrowserWindowConstructorOptions, NotificationConstructorOptions } from 'electron';
 import { BrowserWindow, app, Notification, clipboard } from 'electron';
-import { spawn } from 'node:child_process';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import { spawn, ChildProcessWithoutNullStreams } from 'node:child_process';
 
 import type { CapacitorElectronMetacodiPlugin } from '../../src/definitions';
 
@@ -13,6 +14,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   isClosed = true;
   soundPlay: any;
   isPlay = false;
+  script: ChildProcessWithoutNullStreams;
 
   constructor() { }
 
@@ -160,27 +162,16 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       //   resolve({stdout,commandExec});
       // });
 
-      const script = spawn(command,[commandExec],{ shell: true });
-
-      script.stdout.on('data', (data) => {
- 
-        // data is a Buffer
-        // log a conversion to a string that is one less byte
-        // this is drop the line feed.
-        console.log(data.slice(0,data.length-1).toString('utf8'));
-     
-      });
-
-      
-
-      setInterval(function () {
-        //script.stdin.pause();
-        script.kill();
-        console.log('child killed');
-        resolve(commandExec);
-      }, 10000);
-
+      this.script = spawn(command,[commandExec],{ shell: true });
+      resolve({ pid: this.script.pid, commandExec });
     });
   };
+
+  async executeKill(): Promise<void> {
+    if (!this.script.killed) {
+      this.script.kill();
+    }
+    return;
+  }
 
 }

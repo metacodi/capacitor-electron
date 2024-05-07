@@ -56,6 +56,9 @@ export interface CapacitorElectronMetacodiPlugin {
    */
   execute(options: { command: string, rootPath?: boolean, args?: string }): Promise<any>;
 
-
+  /**
+   * Kill if Execute Command
+   */
+  executeKill(): Promise<void>;
 
 }

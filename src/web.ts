@@ -43,4 +43,6 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
     return;
   }
 
+  async executeKill(): Promise<void>  { return; };
+  
 }

@@ -125,7 +125,8 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   async execute(options: { command: string, rootPath?: boolean, args?: string }): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       const path = require('path');
-      const { exec } = require("child_process");
+      // const { exec } = require("child_process");
+      const { spawn, spawnSync } = require("child_process");
       const rootPath = options.rootPath === undefined ? false : options.rootPath;
       const args = options.args === undefined ? '' : options.args;
       const { command } = options;
@@ -143,21 +144,32 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       }
 
       const commandExec = rootPath? `${command} ${urlRootPath}` : `${command} ${args}`;
-      exec(commandExec, (error: any, stdout: any, stderr: any) => {
-        if (error) {
-          // console.log(`error: ${error.message}`);
-          reject(error.message)
-          return;
-        }
-        if (stderr) {
-          // console.log(`stderr: ${stderr}`);
-          reject(stderr)
-          return;
-        }
-        // console.log(`stdout: ${stdout}`);
-        resolve({stdout,commandExec});
-      });
+      // exec(commandExec, (error: any, stdout: any, stderr: any) => {
+      //   if (error) {
+      //     // console.log(`error: ${error.message}`);
+      //     reject(error.message)
+      //     return;
+      //   }
+      //   if (stderr) {
+      //     // console.log(`stderr: ${stderr}`);
+      //     reject(stderr)
+      //     return;
+      //   }
+      //   // console.log(`stdout: ${stdout}`);
+      //   resolve({stdout,commandExec});
+      // });
 
+      const child = spawn(commandExec);
+      // console.log(`${new Date()} : CHILD STARTED`);
+      // child.stdout.on("data", (d: any) => console.log(`${new Date()} : STDOUT => ${d}`));
+      // child.stderr.on("data", (d: any) => console.log(`${new Date()} : STDERR => ${d}`));
+      child.on("close", () => console.log(`${new Date()} : CHILD ENDED`));
+      setTimeout(() => {
+        spawnSync(
+          'kill', [child.pid.toString()]
+        );
+        resolve(commandExec);
+      }, 1200);
 
     });
   };

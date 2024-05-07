@@ -2,8 +2,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import type { BrowserWindowConstructorOptions, NotificationConstructorOptions } from 'electron';
 import { BrowserWindow, app, Notification, clipboard } from 'electron';
+import { spawn } from 'node:child_process';
 
 import type { CapacitorElectronMetacodiPlugin } from '../../src/definitions';
+
 
 export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugin {
 
@@ -123,9 +125,9 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   };
 
   async execute(options: { command: string, rootPath?: boolean, args?: string }): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+    return new Promise<any>((resolve) => {
       const path = require('path');
-      const { exec } = require("child_process");
+      // const { exec } = require("child_process");
       const rootPath = options.rootPath === undefined ? false : options.rootPath;
       const args = options.args === undefined ? '' : options.args;
       const { command } = options;
@@ -143,21 +145,40 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       }
 
       const commandExec = rootPath? `${command} ${urlRootPath}` : `${command} ${args}`;
-      exec(commandExec, (error: any, stdout: any, stderr: any) => {
-        if (error) {
-          // console.log(`error: ${error.message}`);
-          reject(error.message)
-          return;
-        }
-        if (stderr) {
-          // console.log(`stderr: ${stderr}`);
-          reject(stderr)
-          return;
-        }
-        // console.log(`stdout: ${stdout}`);
-        resolve({stdout,commandExec});
+      // exec(commandExec, (error: any, stdout: any, stderr: any) => {
+      //   if (error) {
+      //     // console.log(`error: ${error.message}`);
+      //     reject(error.message)
+      //     return;
+      //   }
+      //   if (stderr) {
+      //     // console.log(`stderr: ${stderr}`);
+      //     reject(stderr)
+      //     return;
+      //   }
+      //   // console.log(`stdout: ${stdout}`);
+      //   resolve({stdout,commandExec});
+      // });
+
+      const script = spawn(commandExec);
+
+      script.stdout.on('data', (data) => {
+ 
+        // data is a Buffer
+        // log a conversion to a string that is one less byte
+        // this is drop the line feed.
+        console.log(data.slice(0,data.length-1).toString('utf8'));
+     
       });
 
+      
+
+      setInterval(function () {
+        //script.stdin.pause();
+        script.kill();
+        console.log('child killed');
+        resolve(commandExec);
+      }, 4000);
 
     });
   };

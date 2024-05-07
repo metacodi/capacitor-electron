@@ -5,6 +5,8 @@ import { BrowserWindow, app, Notification, clipboard } from 'electron';
 
 import type { CapacitorElectronMetacodiPlugin } from '../../src/definitions';
 
+// import { spawn, spawnSync } from 'child_process';
+
 export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugin {
 
   win: BrowserWindow;
@@ -126,7 +128,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return new Promise<any>((resolve, reject) => {
       const path = require('path');
       // const { exec } = require("child_process");
-      const { spawn, spawnSync } = require("child_process");
+      // const { spawn, spawnSync } = require("child_process");
       const rootPath = options.rootPath === undefined ? false : options.rootPath;
       const args = options.args === undefined ? '' : options.args;
       const { command } = options;
@@ -158,7 +160,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       //   // console.log(`stdout: ${stdout}`);
       //   resolve({stdout,commandExec});
       // });
-
+      const { spawn, spawnSync } = require('node:child_process');
       const child = spawn(commandExec);
       // console.log(`${new Date()} : CHILD STARTED`);
       // child.stdout.on("data", (d: any) => console.log(`${new Date()} : STDOUT => ${d}`));

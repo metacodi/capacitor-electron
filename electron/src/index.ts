@@ -160,7 +160,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       //   resolve({stdout,commandExec});
       // });
 
-      const script = spawn(command,[commandExec]);
+      const script = spawn(command,[commandExec],{ shell: true });
 
       script.stdout.on('data', (data) => {
  

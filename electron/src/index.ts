@@ -146,7 +146,9 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         urlRootPath = urlRootPath.replace('\\\\', '\\');
       }
 
-      const commandExec = rootPath? `${urlRootPath}` : `${args}`;
+      let output = '';
+
+      const commandExec = rootPath ? `${urlRootPath}` : `${args}`;
       // exec(commandExec, (error: any, stdout: any, stderr: any) => {
       //   if (error) {
       //     // console.log(`error: ${error.message}`);
@@ -162,14 +164,21 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       //   resolve({stdout,commandExec});
       // });
 
-      this.script = spawn(command,[commandExec],{ shell: true });
-      resolve({ pid: this.script.pid, commandExec });
+      this.script = spawn(command, [commandExec], { stdio: 'pipe', shell: true });
+
+      if (this.script.stdout) { this.script.stdout.on('data', (data: any) => { output = data;}); }
+
+      this.script.on('close', (code, signal) => {
+        resolve({ pid: this.script.pid, commandExec, code, signal, output });
+      });
+
     });
   };
 
   async executeKill(): Promise<void> {
     if (!this.script.killed) {
       this.script.kill();
+      this.script = null;
     }
     return;
   }

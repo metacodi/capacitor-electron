@@ -1,8 +1,9 @@
+
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { BrowserWindowConstructorOptions } from 'electron';
 
 export interface CapacitorElectronMetacodiPlugin {
-  
+
   /**
    * Exit electron app
    */
@@ -54,7 +55,7 @@ export interface CapacitorElectronMetacodiPlugin {
   /**
    * Execute Command
    */
-  execute(command: string, options: { rootPath?: boolean; args?: string; stdout?: (data: string) => void; stderr?: (data: string) => void }): Promise<{ pid: number; commandExec: string; code: number; signal: NodeJS.Signals; stdout: string; stderr: string }>;
+  execute(command: string, options: { rootPath?: boolean; args?: string; }): Promise<{ pid: number; commandExec: string; code: number; signal: NodeJS.Signals; stdout: string; stderr: string }>;
 
   /**
    * Kill if Execute Command

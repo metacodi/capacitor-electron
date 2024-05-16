@@ -126,7 +126,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async execute(command: string, options: { rootPath?: boolean; args?: string; stdout?: (data: string) => void; stderr?: (data: string) => void }): Promise<{ pid: number; commandExec: string; code: number; signal: NodeJS.Signals; stdout: string; stderr: string }> {
+  async execute(command: string, options: { rootPath?: boolean; args?: string; }): Promise<{ pid: number; commandExec: string; code: number; signal: NodeJS.Signals; stdout: string; stderr: string }> {
     return new Promise<any>((resolve) => {
       const path = require('path');
       // const { exec } = require("child_process");

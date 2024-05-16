@@ -173,7 +173,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         this.childProcess.stdout.on('data', (data: any) => {
           const output = data.toString();
           stdout += output;
-          if (typeof options.stdout === 'function') { options.stdout(output); }
+          // if (typeof options.stdout === 'function') { options.stdout(output); }
         });
       }
 
@@ -181,7 +181,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         this.childProcess.stderr.on('data', (data: any) => {
           const output = data.toString();
           stderr += output;
-          if (typeof options.stderr === 'function') { options.stderr(output); }
+          // if (typeof options.stderr === 'function') { options.stderr(output); }
         });
       }
 

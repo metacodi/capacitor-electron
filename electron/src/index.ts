@@ -14,7 +14,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   isClosed = true;
   soundPlay: any;
   isPlay = false;
-  script: ChildProcessWithoutNullStreams;
+  childProcess: ChildProcessWithoutNullStreams;
 
   constructor() { }
 
@@ -126,13 +126,13 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
     return;
   };
 
-  async execute(options: { command: string, rootPath?: boolean, args?: string }): Promise<any> {
+  async execute(command: string, options: { rootPath?: boolean; args?: string; stdout?: (data: string) => void; stderr?: (data: string) => void }): Promise<{ pid: number; commandExec: string; code: number; signal: NodeJS.Signals; stdout: string; stderr: string }> {
     return new Promise<any>((resolve) => {
       const path = require('path');
       // const { exec } = require("child_process");
+      if (!options) { options = {}; }
       const rootPath = options.rootPath === undefined ? false : options.rootPath;
       const args = options.args === undefined ? '' : options.args;
-      const { command } = options;
 
       // Obtenim el path de l'App
       let urlRootPath = '';
@@ -145,8 +145,6 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
         urlRootPath = path.join(pathApp, '../assets/', args);
         urlRootPath = urlRootPath.replace('\\\\', '\\');
       }
-
-      let output = '';
 
       const commandExec = rootPath ? `${urlRootPath}` : `${args}`;
       // exec(commandExec, (error: any, stdout: any, stderr: any) => {
@@ -164,21 +162,40 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       //   resolve({stdout,commandExec});
       // });
 
-      this.script = spawn(command, [commandExec], { stdio: 'pipe', shell: true });
+      // Quan la sortida standard (stdio) està en 'inherit', el resultat surt directament per consola.
+      // Quan la sortida està en 'pipe', els handlers (stdout, stderr) s'activen i des d'allà escribim inmediatament el resultat per no fer esperar l'usuari a que s'acabi el procés.
+      this.childProcess = spawn(command, [commandExec], { stdio: 'pipe', shell: true });
+      
+      let stdout = '';
+      let stderr = '';
 
-      if (this.script.stdout) { this.script.stdout.on('data', (data: any) => { output += (data as Buffer).toString();}); }
+      if (this.childProcess.stdout) {
+        this.childProcess.stdout.on('data', (data: any) => {
+          const output = data.toString();
+          stdout += output;
+          if (typeof options.stdout === 'function') { options.stdout(output); }
+        });
+      }
 
-      this.script.on('close', (code, signal) => {
-        resolve({ pid: this.script.pid, commandExec, code, signal, output });
+      if (this.childProcess.stderr) {
+        this.childProcess.stderr.on('data', (data: any) => {
+          const output = data.toString();
+          stderr += output;
+          if (typeof options.stderr === 'function') { options.stderr(output); }
+        });
+      }
+
+      this.childProcess.on('close', (code: number, signal: NodeJS.Signals) => {
+        resolve({ pid: this.childProcess.pid, commandExec, code, signal, stdout, stderr });
       });
 
     });
   };
 
   async executeKill(): Promise<void> {
-    if (!this.script.killed) {
-      this.script.kill();
-      this.script = null;
+    if (!this.childProcess.killed) {
+      this.childProcess.kill();
+      this.childProcess = null;
     }
     return;
   }

@@ -38,8 +38,8 @@ export class CapacitorElectronMetacodiWeb extends WebPlugin implements Capacitor
 
   async stopSound(): Promise<void> { return; };
 
-  async execute(options: { command: string, rootPath?: boolean, args?: string }): Promise<any> { 
-    console.log('not implemented on web', options);
+  async execute(command: string, options: { rootPath?: boolean; args?: string; stdout?: (data: string) => void; stderr?: (data: string) => void }): Promise<any> {
+    console.log('not implemented on web', command, options);
     return;
   }
 

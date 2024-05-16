@@ -54,8 +54,8 @@
     "@ionic/eslint-config": "^0.3.0",
     "@ionic/prettier-config": "^1.0.1",
     "@ionic/swiftlint-config": "^1.1.2",
-    "@metacodi/node-api-client": "^1.0.17",
-    "@metacodi/node-utils": "^1.0.31",
+    "@metacodi/node-api-client": "^1.0.18",
+    "@metacodi/node-utils": "^1.0.34",
     "@metacodi/precode": "^1.0.112",
     "eslint": "^7.11.0",
     "prettier": "~2.3.0",
@@ -63,6 +63,7 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.32.0",
     "swiftlint": "^1.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "~4.1.5"
   },
   "peerDependencies": {

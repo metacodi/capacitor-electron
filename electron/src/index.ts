@@ -172,7 +172,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
       if (this.childProcess.stdout) {
         this.childProcess.stdout.on('data', (data: any) => {
           const output = data.toString();
-          stdout += JSON.stringify(JSON.parse(output));
+          stdout += output;
           // if (typeof options.stdout === 'function') { options.stdout(output); }
         });
       }

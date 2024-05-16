@@ -202,7 +202,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
   async executeKill(): Promise<void> {
     if (!this.childProcess.killed) {
       this.childProcess.kill();
-      this.childProcess = null;
+      // this.childProcess = null;
     }
     return;
   }

@@ -164,36 +164,32 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
 
       // Quan la sortida standard (stdio) està en 'inherit', el resultat surt directament per consola.
       // Quan la sortida està en 'pipe', els handlers (stdout, stderr) s'activen i des d'allà escribim inmediatament el resultat per no fer esperar l'usuari a que s'acabi el procés.
-      this.childProcess = spawn(command, [commandExec], { shell: true });
-      // this.childProcess = spawn(command, [commandExec], { stdio: 'pipe', shell: true });
+      // this.childProcess = spawn(command, [commandExec], { shell: true });
+      this.childProcess = spawn(command, [commandExec], { stdio: 'pipe', shell: true });
 
-      // let stdout = '';
-      // let stderr = '';
+      let stdout = '';
+      let stderr = '';
 
-      // if (this.childProcess.stdout) {
-      //   this.childProcess.stdout.on('data', (data: any) => {
-      //     const output = data.toString();
-      //     stdout += output;
-      //     // if (typeof options.stdout === 'function') { options.stdout(output); }
-      //   });
-      // }
+      if (this.childProcess.stdout) {
+        this.childProcess.stdout.on('data', (data: any) => {
+          const output = data.toString();
+          stdout += output;
+          // if (typeof options.stdout === 'function') { options.stdout(output); }
+        });
+      }
 
-      // if (this.childProcess.stderr) {
-      //   this.childProcess.stderr.on('data', (data: any) => {
-      //     const output = data.toString();
-      //     stderr += output;
-      //     // if (typeof options.stderr === 'function') { options.stderr(output); }
-      //   });
-      // }
-
-      this.childProcess.on('close', (code: number, signal: NodeJS.Signals) => {
-        resolve({ on: 'close', pid: this.childProcess.pid, commandExec, code, signal });
-        // resolve({ on: 'close', pid: this.childProcess.pid, commandExec, code, signal, stdout, stderr });
-      });
+      if (this.childProcess.stderr) {
+        this.childProcess.stderr.on('data', (data: any) => {
+          const output = data.toString();
+          stderr += output;
+          // if (typeof options.stderr === 'function') { options.stderr(output); }
+        });
+      }
 
       this.childProcess.on('exit', (code: number, signal: NodeJS.Signals) => {
-        resolve({ on: 'exit', pid: this.childProcess.pid, commandExec, code, signal });
-        // resolve({ on: 'exit', pid: this.childProcess.pid, commandExec, code, signal, stdout, stderr });
+        // resolve({ on: 'exit', pid: this.childProcess.pid, commandExec, code, signal });
+        resolve({ on: 'exit', pid: this.childProcess.pid, commandExec, code, signal, stdout, stderr });
+        this.childProcess = null;
       });
 
     });

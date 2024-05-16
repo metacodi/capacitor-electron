@@ -166,7 +166,7 @@ export class CapacitorElectronMetacodi implements CapacitorElectronMetacodiPlugi
 
       this.script = spawn(command, [commandExec], { stdio: 'pipe', shell: true });
 
-      if (this.script.stdout) { this.script.stdout.on('data', (data: any) => { output = data;}); }
+      if (this.script.stdout) { this.script.stdout.on('data', (data: any) => { output = JSON.stringify(data);}); }
 
       this.script.on('close', (code, signal) => {
         resolve({ pid: this.script.pid, commandExec, code, signal, output });
